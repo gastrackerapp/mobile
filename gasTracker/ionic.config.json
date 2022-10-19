@@ -1,0 +1,7 @@
+{
+  "name": "gasTracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
