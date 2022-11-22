@@ -3,19 +3,18 @@ import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
 import { useCallback, useState, useRef } from 'react';
 import { useStorage } from '../components/useStorage';
-import GasStationCard from '../components/GasStationCard';
-
+import { randomBytes, randomInt } from 'crypto';
 const Tab1: React.FC = () => {
    const { gass, addGas , removeGas} = useStorage();
    const [place,setPlace] = useState('');
    const ionList = useRef(null as any);
 
-   const createGas = async () =>{
-    await addGas(0,0);
+   const createGas = async (id:string,id2:string,id3 : string) =>{
+    await addGas(id,id2,id3);
     setPlace('');
    }
 
-   const deleteGas = async(id: number) =>{
+   const deleteGas = async(id: string) =>{
     //TODO
     removeGas(id);
     ionList.current.closeSlidingItems();
@@ -38,14 +37,14 @@ const Tab1: React.FC = () => {
             <IonItem>
             <IonInput value={place} onIonChange={(e) => setPlace(e.detail.value!)} placeholder='Repsol'>
             </IonInput>
-            <IonButton slot='end' onClick={() => createGas()} fill="clear">Añadir</IonButton>
+            <IonButton slot='end' onClick={() => createGas("1","2","3")} fill="clear">Añadir</IonButton>
             </IonItem>
+            
             <IonList ref={ionList}>
               {gass.map((gas, key) =>(
                 <IonItemSliding key={key}><IonItem>
-                  <GasStationCard name={"Victor"}/>
-                  </IonItem>
-                  <IonItemOptions side="start" onClick={() => deleteGas(gas.estacionServicio)}>
+                  {gas.IDEESS} </IonItem>
+                  <IonItemOptions side="start" onClick={() => deleteGas(gas.IDEESS)}>
                     <IonItemOption>
                         Borrar
                     </IonItemOption>

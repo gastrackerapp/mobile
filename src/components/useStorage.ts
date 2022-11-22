@@ -4,8 +4,9 @@ import { Storage } from '@ionic/storage';
 const GAS_KEY = 'my-gas'
 
 export interface GasItem {
-estacionServicio: number,
-municipio: number
+IDEESS: string,
+IDMunicipio: string,
+IDProducto: string | null
 
 }
 export function useStorage(){
@@ -27,10 +28,11 @@ useEffect(() => {
         initStorage(); 
     }, [])
 
-    const addGas = async (estacion: number, idmunicipio: number) => {
+    const addGas = async (estacion: string, idmunicipio: string,idproducto : string | null) => {
         const newGas = {
-            estacionServicio : estacion,
-            municipio : idmunicipio
+            IDEESS : estacion,
+            IDMunicipio : idmunicipio,
+            IDProducto : idproducto
         }
         const updatedGas = [...gass,newGas];
         setGas(updatedGas)
@@ -38,8 +40,8 @@ useEffect(() => {
         store?.set(GAS_KEY,updatedGas);
     }
 
-    const removeGas = async(id: number) =>{
-        const toDelete = gass.filter(gas => gas.estacionServicio !== id);
+    const removeGas = async(id: string) =>{
+        const toDelete = gass.filter(gas => gas.IDEESS !== id);
         setGas(toDelete);
         return store?.set(GAS_KEY,toDelete);
     }

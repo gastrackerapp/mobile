@@ -89,12 +89,12 @@ const Tab2: React.FC = () => {
   const [place,setPlace] = useState('');
   const ionList = useRef(null as any);
   
-  const createGas = async (id1: number, id2:number) =>{
-    await addGas(id1,id2);
+  const createGas = async (id1: string, id2:string,id3: string|null) =>{
+    await addGas(id1,id2,id3);
     setPlace('');
    }
 
-   const deleteGas = async(id: number) =>{
+   const deleteGas = async(id: string) =>{
     //TODO
     removeGas(id);
     ionList.current.closeSlidingItems();
@@ -201,8 +201,21 @@ const Tab2: React.FC = () => {
               Station.Rótulo.search(IDEESS.toUpperCase()) != -1 ||
               IDEESS === "-"
             ) {
-              return <GasStationCard gasStation={Station} />;
-            }
+              return  <IonList ref={ionList}>
+              {Stations.map((Station, key) =>(
+                <IonItemSliding key={key}><IonItem>
+                  <GasStationCard gasStation={Station}/></IonItem>
+                  <IonItemOptions side="start" onClick={() => createGas(Station.IDEESS,Station.IDMunicipio,Station.IDProducto)}>
+                    <IonItemOption>
+                        Crear
+                    </IonItemOption>
+                  </IonItemOptions>
+                  </IonItemSliding>
+              ))}
+            </IonList>
+              
+            
+          }
           })}
     </div>
     </IonContent>

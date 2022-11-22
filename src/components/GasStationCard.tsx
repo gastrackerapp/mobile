@@ -15,7 +15,7 @@ export default function GasStationCard(gasStation: any) {
       </div>
       <div className="vinetahija">
         <h1 className="marca">{gasStation.Rótulo} </h1>
-        <p className="combustible"> Precio: {gasStation.PrecioProducto} </p>
+        <p className="combustible"> Precio: {gasStation.PrecioProducto}</p>
         <p className="direccion"> Direccion: {gasStation.Dirección}</p>
         <a href={direction} className="boton">
           Ir

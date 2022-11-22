@@ -13,6 +13,7 @@ export default function useStation(IDMunicipio : string | null, IDProducto : str
       IDMunicipio: string;
       IDProvincia: string;
       IDCCAA: string;
+      IDProducto: string | null;
     };
     
     const [Stations, setStations] = useState<StationJSON[]>([]);
@@ -36,6 +37,7 @@ export default function useStation(IDMunicipio : string | null, IDProducto : str
                 IDMunicipio : Station.IDMunicipio,
                 IDProvincia : Station.IDProvincia,
                 IDCCAA : Station.IDCCAA,
+                IDProducto: IDProducto,
               };
               StationsJSON.push(StationJSON);
             });
