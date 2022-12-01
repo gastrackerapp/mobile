@@ -1,9 +1,12 @@
-import { IonContent, IonHeader, IonIcon, IonList, IonPage, IonTitle, IonToolbar, IonItem, IonInput, IonButton, IonItemSliding, IonItemOptions, IonItemOption} from '@ionic/react';
+import { IonContent, IonHeader, IonIcon, IonList, IonPage, IonTitle, IonImg, IonToolbar, IonItem, IonInput, IonButton, IonItemSliding, IonItemOptions, IonItemOption} from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
 import { useCallback, useState, useRef } from 'react';
 import { useStorage } from '../components/useStorage';
 import { randomBytes, randomInt } from 'crypto';
+import useFavourite from '../hooks/useFavourite';
+import GasStationCard from '../components/GasStationCard';
+
 const Tab1: React.FC = () => {
    const { gass, addGas , removeGas} = useStorage();
    const [place,setPlace] = useState('');
@@ -15,49 +18,40 @@ const Tab1: React.FC = () => {
    }
 
    const deleteGas = async(id: string) =>{
-    //TODO
     removeGas(id);
     ionList.current.closeSlidingItems();
    }
   
   
+   
+   const FavouriteStations = useFavourite(gass);
+   console.log("FavStationsJSON")
+   console.log(FavouriteStations)
   
   
    return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>My gas</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent >
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Gas Stations</IonTitle>
-            <IonItem>
-            <IonInput value={place} onIonChange={(e) => setPlace(e.detail.value!)} placeholder='Repsol'>
-            </IonInput>
-            <IonButton slot='end' onClick={() => createGas("1","2","3")} fill="clear">Añadir</IonButton>
-            </IonItem>
-            
-            <IonList ref={ionList}>
-              {gass.map((gas, key) =>(
+    <IonContent fullscreen>
+    <IonImg className='logo' src="assets/images/logo.png" alt=""></IonImg> 
+    <div>
+      {FavouriteStations.map((Station, key) =>{
+        return  <IonList ref={ionList}>
                 <IonItemSliding key={key}><IonItem>
-                  {gas.IDEESS} </IonItem>
-                  <IonItemOptions side="start" onClick={() => deleteGas(gas.IDEESS)}>
+                  <GasStationCard gasStation={Station}/></IonItem>
+                  <IonItemOptions side="start" onClick={() => deleteGas(Station.IDEESS)}>
                     <IonItemOption>
-                        Borrar
+                        d
                     </IonItemOption>
                   </IonItemOptions>
                   </IonItemSliding>
-              ))}
             </IonList>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Mis favoritos"/>
+      })}
+    </div>
         </IonContent>
     </IonPage>
   );
 };
 
 export default Tab1;
+
+

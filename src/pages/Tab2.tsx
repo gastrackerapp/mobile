@@ -106,7 +106,9 @@ const Tab2: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-      <IonImg className='logo' src="assets/images/logo.png" alt=""></IonImg>
+      <IonImg className='App-image' src="assets/images/logo.png" alt=""></IonImg>
+      <body className="App-body">
+        <div className="App-bodycolumn">
       <div className="Form-block">
         <p className="Form-title">
           <b>
@@ -182,6 +184,8 @@ const Tab2: React.FC = () => {
           </b>
         </button>
       </div>
+      </div>
+      </body>
       </IonContent>
     </IonPage>
   );}
@@ -196,25 +200,22 @@ const Tab2: React.FC = () => {
           <i>NUEVA BUSQUEDA</i>
         </b>
       </button>
-      {Stations.map((Station) => {
+      {Stations.map((Station,key) => {
             if (
               Station.Rótulo.search(IDEESS.toUpperCase()) != -1 ||
               IDEESS === "-"
             ) {
               return  <IonList ref={ionList}>
-              {Stations.map((Station, key) =>(
                 <IonItemSliding key={key}><IonItem>
                   <GasStationCard gasStation={Station}/></IonItem>
                   <IonItemOptions side="start" onClick={() => createGas(Station.IDEESS,Station.IDMunicipio,Station.IDProducto)}>
                     <IonItemOption>
-                        Crear
+                        Favoritos
                     </IonItemOption>
                   </IonItemOptions>
                   </IonItemSliding>
-              ))}
-            </IonList>
-              
             
+            </IonList>
           }
           })}
     </div>
