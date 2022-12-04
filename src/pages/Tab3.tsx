@@ -1,6 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import './Tab3.css';
 import useLocation from "../hooks/useLocation";
+import GeolocationButton from '../components/Geolocationbutton';
 
 const Tab3: React.FC = () => {
   const location = {
@@ -9,7 +10,6 @@ const Tab3: React.FC = () => {
     lng: -5.0137913
   }
   const response = useLocation(location);
-
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -18,7 +18,7 @@ const Tab3: React.FC = () => {
         <h1>{response?.area}</h1>
       </IonContent>
 
-
+      <GeolocationButton ></GeolocationButton>
     </IonPage>
   );                                                                           
 };
