@@ -1,103 +1,99 @@
-.vinetapadre
-{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: minmax(100px, auto);
-    column-gap: 0em;
-    height: fit-content;
-    width: fit-content;
-    border-radius: 25px;
-    border-color: #fa6400;
-    border-style: solid;
+.GasStationCard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 20vh;
+  max-height: 20vh;
+  width: 80vw;
+  max-width: 80vw;
+  border-radius: 25px;
+  border-color: #f0980b;
+  border-style: solid;
+  background-color: #ffffff;
+  margin-left: 5vw;
+  margin-bottom: 2vh;
 }
 
-.imagecenter
-{
-    align-self: center;
-    justify-self: center;
-    border-color: #fa6400;
-    border-style: solid;
-    border-radius: 100%;
-
-}
-
-.vinetahija
-{
-    grid-column: 2;
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    height: fit-content;
-    width: fit-content;
-}
-
-.combustible
-{
-    align-self: center;
-    justify-self: center;
-}
-
-.marca
-{
-    align-self: center;
-    justify-self: center;
-}
-
-.direccion
-{
-    align-self: center;
-    justify-self: center;
-}
-
-/* CSS */
-.boton {
-  align-items: center;
-  background-clip: padding-box;
-  background-color: #fa6400;
-  border: 1px solid;
-  border-radius: .25rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 1.25;
-  margin: 0;
-  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
-  position: relative;
-  text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
-  height: 2em;
-  width: 8em;
+.GasStationLogo {
   align-self: center;
   justify-self: center;
+  border-style: solid;
+  border-color: #f0980b;
+  border-radius: 50%;
+  max-width: auto;
+  max-height: auto;  
+  max-width: 18vw;
+  max-height: 18vh;
+  background-color: #ffffff;
+  margin: auto;
 }
 
-.boton:hover,
-.boton:focus {
-  background-color: #fb8332;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+.GasStationInfo {
+  margin-right: 4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 20vh;
+  max-height: 20vh;
+  width: 60vw;
+  max-width: 60vw;
+  border-radius: 25px;
 }
 
-.boton:hover {
-  transform: translateY(-1px);
+.CardFirstRow{
+  border-radius: 25px;
+  height: 6.66vh;
+  max-height: 6.66vh;
+  width: 58vw;
+  max-width: 58vw;
+  display: inline-flex;
+  justify-content: space-between;
 }
 
-.boton:active {
-  background-color: #c85000;
-  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
-  transform: translateY(0);
+.GasStationLabel {
+  border-radius: 25px;
+  height: 6.66vh;
+  max-height: 6.66vh;
+  font-weight: bold;
+  font-style: italic;
+}
+.GasStationFuelPrice {
+  border-radius: 25px;
+  height: 6.66vh;
+  max-height: 6.66vh;
 }
 
-.gasStationLogo{
-  max-width: 4vw;
-  max-height: 3vh;
-  padding: 4px 2px;
+.CardSecondRow{
+  border-radius: 25px;
+  height: 6.66vh;
+  max-height: 6.66vh;
+  width: 58vw;
+  max-width: 58vw;
+  align-items: flex-start;
+}
+
+.GasStationAddress {
+  color: #808080;
+}
+
+.CardThirdRow{
+  border-radius: 25px;
+  height: 6.66vh;
+  max-height: 6.66vh;
+  width: 58vw;
+  max-width: 58vw;
+  display: inline-flex;
+  justify-content: flex-end;
+}
+
+.GasStationButton {
+  background-color: #f0980b;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  height: 4vh;
+  min-width: 25vw;
+  text-align: center;
+  padding-top: 0.75vh;
+  margin-right: 1vw;
 }
