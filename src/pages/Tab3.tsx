@@ -10,17 +10,18 @@ import {
   IonItemSliding,
   IonItemOptions,
   IonItemOption,
-  IonButton, 
-  IonLoading, 
-  IonToast
+  IonButton,
+  IonLoading,
+  IonToast,
 } from "@ionic/react";
 import { useState, useRef } from "react";
+import LocationService from '../components/Location';
 import useStation from "../hooks/useStation";
 import useLocation from "../hooks/useLocation";
 import useProducto from "../hooks/useProducto";
 import { useStorage } from "../hooks/useStorage";
 import GasStationCard from "../components/GasStationCard";
-import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { Geolocation, Geoposition } from "@ionic-native/geolocation";
 import useMunicipioByName from "../hooks/useMunicipioByName";
 
 interface LocationError {
@@ -29,7 +30,6 @@ interface LocationError {
 }
 
 const Tab3: React.FC = () => {
-
   /////////////////////////Location Hook/////////////////////////
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<LocationError>({ showError: false });
@@ -38,24 +38,29 @@ const Tab3: React.FC = () => {
   const getLocation = async () => {
     setLoading(true);
     try {
-        const position = await Geolocation.getCurrentPosition();
-        setPosition(position);
-        setLoading(false);
-        setError({ showError: false });
+      const position = await Geolocation.getCurrentPosition();
+      setPosition(position);
+      setLoading(false);
+      setError({ showError: false });
     } catch (e) {
-        setError({ showError: true, message: 'No se ha encontrado la ubicación' });
-        setLoading(false);
+      setError({
+        showError: true,
+        message: "No se ha encontrado la ubicación",
+      });
+      setLoading(false);
     }
-    console.log(position)
-
-}
-  
+    console.log(position);
+  };
 
   const userLocation = useLocation(position);
   //////////////////////////////////////////////////////////////
 
   /////////////////////Conditional rendering/////////////////////
   const getSearchingInitialState = () => {
+    if(!LocationService.checkGPSPermission()){
+      LocationService.requestGPSPermission();
+      LocationService.askToTurnOnGPS();
+    }
     const Searching = false;
     return Searching;
   };
@@ -63,8 +68,8 @@ const Tab3: React.FC = () => {
   const [Searching, setSearching] = useState(getSearchingInitialState);
 
   const handleSearchingChange = () => {
-    getLocation()
-    console.log(IDMunicipio)
+    getLocation();
+    console.log(IDMunicipio);
     setSearching(!Searching);
   };
   //////////////////////////////////////////////////////////////
