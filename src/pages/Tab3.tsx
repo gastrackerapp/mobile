@@ -1,5 +1,6 @@
 import "./Tab3.css";
-import { trash, star } from 'ionicons/icons';
+import React from "react";
+import { trash, star } from "ionicons/icons";
 import {
   IonContent,
   IonIcon,
@@ -10,26 +11,31 @@ import {
   IonItemOptions,
   IonItemOption,
 } from "@ionic/react";
-import { useStorage } from "../components/useStorage";
 import { useState, useRef } from "react";
-import GasStationCard from "../components/GasStationCard";
-import React from "react";
 import useStation from "../hooks/useStation";
+import useLocation from "../hooks/useLocation";
 import useProducto from "../hooks/useProducto";
+import { useStorage } from "../hooks/useStorage";
+import GasStationCard from "../components/GasStationCard";
 
 const Tab3: React.FC = () => {
+
+  /////////////////////////Location Hook/////////////////////////
   const location = {
     //TRAER ESTOS DATOS DE LA LOCALIZACION DEL USUARIO
     lat: 37.8132667,
     lng: -5.0137913,
   };
 
+  const response = useLocation(location);
+  //////////////////////////////////////////////////////////////
+
   /////////////////////Conditional rendering/////////////////////
   const getSearchingInitialState = () => {
     const Searching = false;
     return Searching;
   };
-  
+
   const [Searching, setSearching] = useState(getSearchingInitialState);
 
   const handleSearchingChange = () => {
@@ -44,9 +50,9 @@ const Tab3: React.FC = () => {
   };
 
   const [IDProducto, setIDProducto] = useState(getIDProductoInitialState);
-  
+
   const Productos = useProducto();
-  
+
   const handleProductoChange = (e: any) => {
     setIDProducto(e.target.value);
   };
@@ -64,7 +70,7 @@ const Tab3: React.FC = () => {
     setIDEESS(e.target.value);
   };
   //////////////////////////////////////////////////////////////
-  
+
   ////////////////////////Stations Hook////////////////////////
   const Stations = useStation("2063", IDProducto);
   ////////////////////////////////////////////////////////////
@@ -217,17 +223,17 @@ const Tab3: React.FC = () => {
                           )
                         }
                       >
-                        <IonItemOption><IonIcon icon={star} /></IonItemOption>
+                        <IonItemOption>
+                          <IonIcon icon={star} />
+                        </IonItemOption>
                       </IonItemOptions>
                       <IonItemOptions
                         side="end"
-                        onClick={() =>
-                          deleteGas(
-                            Station.IDEESS
-                          )
-                        }
+                        onClick={() => deleteGas(Station.IDEESS)}
                       >
-                        <IonItemOption><IonIcon icon={trash} /></IonItemOption>
+                        <IonItemOption>
+                          <IonIcon icon={trash} />
+                        </IonItemOption>
                       </IonItemOptions>
                     </IonItemSliding>
                   </IonList>

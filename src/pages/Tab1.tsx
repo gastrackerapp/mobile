@@ -1,4 +1,4 @@
-import { trash } from "ionicons/icons";
+import "./Tab1.css";
 import {
   IonContent,
   IonIcon,
@@ -9,19 +9,18 @@ import {
   IonItemOptions,
   IonItemOption,
 } from "@ionic/react";
-import "./Tab1.css";
 import { useRef } from "react";
-import { useStorage } from "../components/useStorage";
+import { trash } from "ionicons/icons";
+import { useStorage } from "../hooks/useStorage";
 import useFavourite from "../hooks/useFavourite";
 import GasStationCard from "../components/GasStationCard";
 
 const Tab1: React.FC = () => {
-
   //////////////////////////DB Hook//////////////////////////
   const ionList = useRef(null as any);
 
   const { gass, removeGas } = useStorage();
-  
+
   const deleteGas = async (id: string) => {
     removeGas(id);
     ionList.current.closeSlidingItems();

@@ -1,4 +1,5 @@
-import { trash, star } from 'ionicons/icons';
+import "./Tab2.css";
+import React from "react";
 import {
   IonContent,
   IonIcon,
@@ -9,25 +10,23 @@ import {
   IonItemOptions,
   IonItemOption,
 } from "@ionic/react";
-import "./Tab2.css";
-import { useStorage } from "../components/useStorage";
-import { useState, useRef } from "react";
-import GasStationCard from "../components/GasStationCard";
-import React from "react";
 import useCCAA from "../hooks/useCCAA";
-import useProvincia from "../hooks/useProvincia";
-import useMunicipio from "../hooks/useMunicipio";
-import useProducto from "../hooks/useProducto";
+import { useState, useRef } from "react";
 import useStation from "../hooks/useStation";
+import { trash, star } from "ionicons/icons";
+import useProducto from "../hooks/useProducto";
+import useMunicipio from "../hooks/useMunicipio";
+import useProvincia from "../hooks/useProvincia";
+import { useStorage } from "../hooks/useStorage";
+import GasStationCard from "../components/GasStationCard";
 
 const Tab2: React.FC = () => {
-
   /////////////////////Conditional rendering/////////////////////
   const getSearchingInitialState = () => {
     const Searching = false;
     return Searching;
   };
-  
+
   const [Searching, setSearching] = useState(getSearchingInitialState);
 
   const handleSearchingChange = () => {
@@ -75,9 +74,9 @@ const Tab2: React.FC = () => {
   };
 
   const [IDMunicipio, setIDMunicipio] = useState(getIDMunicipioInitialState);
-  
+
   const Municipios = useMunicipio(IDProvincia);
-  
+
   const handleMunicipioChange = (e: any) => {
     setIDMunicipio(e.target.value);
   };
@@ -90,9 +89,9 @@ const Tab2: React.FC = () => {
   };
 
   const [IDProducto, setIDProducto] = useState(getIDProductoInitialState);
-  
+
   const Productos = useProducto();
-  
+
   const handleProductoChange = (e: any) => {
     setIDProducto(e.target.value);
   };
@@ -110,11 +109,11 @@ const Tab2: React.FC = () => {
     setIDEESS(e.target.value);
   };
   //////////////////////////////////////////////////////////////
-  
+
   ////////////////////////Stations Hook////////////////////////
   const Stations = useStation(IDMunicipio, IDProducto);
   ////////////////////////////////////////////////////////////
-  
+
   //////////////////////////DB Hook//////////////////////////
   const { gass, addGas, removeGas } = useStorage();
 
@@ -132,7 +131,7 @@ const Tab2: React.FC = () => {
     ionList.current.closeSlidingItems();
   };
   /////////////////////////////////////////////////////////
-  
+
   if (!Searching) {
     return (
       <IonPage>
@@ -310,13 +309,17 @@ const Tab2: React.FC = () => {
                           )
                         }
                       >
-                        <IonItemOption><IonIcon icon={star} /></IonItemOption>
+                        <IonItemOption>
+                          <IonIcon icon={star} />
+                        </IonItemOption>
                       </IonItemOptions>
                       <IonItemOptions
                         side="end"
                         onClick={() => deleteGas(Station.IDEESS)}
                       >
-                        <IonItemOption><IonIcon icon={trash} /></IonItemOption>
+                        <IonItemOption>
+                          <IonIcon icon={trash} />
+                        </IonItemOption>
                       </IonItemOptions>
                     </IonItemSliding>
                   </IonList>
