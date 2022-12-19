@@ -1,10 +1,9 @@
-import { star, trash } from 'ionicons/icons';
+import { trash } from "ionicons/icons";
 import {
   IonContent,
   IonIcon,
   IonList,
   IonPage,
-  IonImg,
   IonItem,
   IonItemSliding,
   IonItemOptions,
@@ -17,36 +16,40 @@ import useFavourite from "../hooks/useFavourite";
 import GasStationCard from "../components/GasStationCard";
 
 const Tab1: React.FC = () => {
-  const { gass, removeGas } = useStorage();
+
+  //////////////////////////DB Hook//////////////////////////
   const ionList = useRef(null as any);
 
+  const { gass, removeGas } = useStorage();
+  
   const deleteGas = async (id: string) => {
     removeGas(id);
     ionList.current.closeSlidingItems();
   };
+  /////////////////////////////////////////////////////////
 
+  //////////////////////Stations  Hook//////////////////////
   const FavouriteStations = useFavourite(gass);
-  console.log("FavStationsJSON");
-  console.log(FavouriteStations);
+  /////////////////////////////////////////////////////////
 
   return (
     <IonPage>
       <IonContent fullscreen>
-      <header className="App-header">
-            <img
-              className="App-image"
-              src="assets/images/logo.png"
-              alt="logo"
-            ></img>
-          </header>
+        <header className="App-header">
+          <img
+            className="App-image"
+            src="assets/images/logo.png"
+            alt="logo"
+          ></img>
+        </header>
         <div>
-        <div className="First-Row">
-              <p className="Stations-Title">
-                <b>
-                  <i>GASOLINERAS FAVORITAS</i>
-                </b>
-              </p>
-            </div>
+          <div className="First-Row">
+            <p className="Stations-Title">
+              <b>
+                <i>GASOLINERAS FAVORITAS</i>
+              </b>
+            </p>
+          </div>
           {FavouriteStations.map((Station, key) => {
             return (
               <IonList ref={ionList}>
@@ -58,7 +61,9 @@ const Tab1: React.FC = () => {
                     side="end"
                     onClick={() => deleteGas(Station.IDEESS)}
                   >
-                        <IonItemOption><IonIcon icon={trash} /></IonItemOption>
+                    <IonItemOption>
+                      <IonIcon icon={trash} />
+                    </IonItemOption>
                   </IonItemOptions>
                 </IonItemSliding>
               </IonList>

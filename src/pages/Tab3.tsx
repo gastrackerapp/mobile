@@ -24,42 +24,56 @@ const Tab3: React.FC = () => {
     lng: -5.0137913,
   };
 
+  /////////////////////Conditional rendering/////////////////////
   const getSearchingInitialState = () => {
     const Searching = false;
     return Searching;
   };
-
+  
   const [Searching, setSearching] = useState(getSearchingInitialState);
+
   const handleSearchingChange = () => {
     setSearching(!Searching);
   };
+  //////////////////////////////////////////////////////////////
 
+  ////////////////////////Producto Hook////////////////////////
   const getIDProductoInitialState = () => {
     const IDProducto = "-";
     return IDProducto;
   };
 
   const [IDProducto, setIDProducto] = useState(getIDProductoInitialState);
+  
   const Productos = useProducto();
+  
   const handleProductoChange = (e: any) => {
     setIDProducto(e.target.value);
   };
+  //////////////////////////////////////////////////////////////
 
+  //////////////////////////EESS Hook//////////////////////////
   const getIDEESSInitialState = () => {
     const IDEESS = "-";
     return IDEESS;
   };
 
   const [IDEESS, setIDEESS] = useState(getIDEESSInitialState);
+
   const handleEESSChange = (e: any) => {
     setIDEESS(e.target.value);
   };
-
+  //////////////////////////////////////////////////////////////
+  
+  ////////////////////////Stations Hook////////////////////////
   const Stations = useStation("2063", IDProducto);
+  ////////////////////////////////////////////////////////////
 
-  //////////////////////////////////////
+  //////////////////////////DB Hook//////////////////////////
   const { gass, addGas, removeGas } = useStorage();
+
   const [place, setPlace] = useState("");
+
   const ionList = useRef(null as any);
 
   const createGas = async (id1: string, id2: string, id3: string | null) => {
@@ -68,11 +82,10 @@ const Tab3: React.FC = () => {
   };
 
   const deleteGas = async (id: string) => {
-    //TODO
     removeGas(id);
     ionList.current.closeSlidingItems();
   };
-  /////////////////////////////////////////
+  /////////////////////////////////////////////////////////
 
   if (!Searching) {
     return (

@@ -21,76 +21,105 @@ import useProducto from "../hooks/useProducto";
 import useStation from "../hooks/useStation";
 
 const Tab2: React.FC = () => {
+
+  /////////////////////Conditional rendering/////////////////////
   const getSearchingInitialState = () => {
     const Searching = false;
     return Searching;
   };
-
+  
   const [Searching, setSearching] = useState(getSearchingInitialState);
+
   const handleSearchingChange = () => {
     setSearching(!Searching);
   };
+  //////////////////////////////////////////////////////////////
 
+  //////////////////////////CCAA Hook//////////////////////////
   const getIDCCAAInitialState = () => {
     const IDCCAA = "01";
     return IDCCAA;
   };
 
   const [IDCCAA, setIDCCAA] = useState(getIDCCAAInitialState);
+
   const CCAAS = useCCAA();
+
   const handleCCAAChange = (e: any) => {
     setIDCCAA(e.target.value);
     setIDProvincia("-");
     setIDMunicipio("-");
   };
+  //////////////////////////////////////////////////////////////
 
+  ///////////////////////Provincia  Hook///////////////////////
   const getIDProvinciaInitialState = () => {
     const IDProvincia = "-";
     return IDProvincia;
   };
 
   const [IDProvincia, setIDProvincia] = useState(getIDProvinciaInitialState);
+
   const Provincias = useProvincia(IDCCAA);
+
   const handleProvinciaChange = (e: any) => {
     setIDProvincia(e.target.value);
     setIDMunicipio("-");
   };
+  //////////////////////////////////////////////////////////////
 
+  ///////////////////////Municipio  Hook///////////////////////
   const getIDMunicipioInitialState = () => {
     const IDMunicipio = "-";
     return IDMunicipio;
   };
 
   const [IDMunicipio, setIDMunicipio] = useState(getIDMunicipioInitialState);
+  
   const Municipios = useMunicipio(IDProvincia);
+  
   const handleMunicipioChange = (e: any) => {
     setIDMunicipio(e.target.value);
   };
+  //////////////////////////////////////////////////////////////
 
+  ////////////////////////Producto Hook////////////////////////
   const getIDProductoInitialState = () => {
     const IDProducto = "-";
     return IDProducto;
   };
 
   const [IDProducto, setIDProducto] = useState(getIDProductoInitialState);
+  
   const Productos = useProducto();
+  
   const handleProductoChange = (e: any) => {
     setIDProducto(e.target.value);
   };
+  //////////////////////////////////////////////////////////////
 
+  //////////////////////////EESS Hook//////////////////////////
   const getIDEESSInitialState = () => {
     const IDEESS = "-";
     return IDEESS;
   };
 
   const [IDEESS, setIDEESS] = useState(getIDEESSInitialState);
+
   const handleEESSChange = (e: any) => {
     setIDEESS(e.target.value);
   };
-
-  //////////////////////////////////////
+  //////////////////////////////////////////////////////////////
+  
+  ////////////////////////Stations Hook////////////////////////
+  const Stations = useStation(IDMunicipio, IDProducto);
+  ////////////////////////////////////////////////////////////
+  
+  //////////////////////////DB Hook//////////////////////////
   const { gass, addGas, removeGas } = useStorage();
+
   const [place, setPlace] = useState("");
+
   const ionList = useRef(null as any);
 
   const createGas = async (id1: string, id2: string, id3: string | null) => {
@@ -99,13 +128,11 @@ const Tab2: React.FC = () => {
   };
 
   const deleteGas = async (id: string) => {
-    //TODO
     removeGas(id);
     ionList.current.closeSlidingItems();
   };
-  /////////////////////////////////////////
-  const Stations = useStation(IDMunicipio, IDProducto);
-
+  /////////////////////////////////////////////////////////
+  
   if (!Searching) {
     return (
       <IonPage>
