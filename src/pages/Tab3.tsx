@@ -1,23 +1,17 @@
 import "./Tab3.css";
-import useLocation from "../hooks/useLocation";
-import GeolocationButton from "../components/Geolocationbutton";
+import { trash, star } from 'ionicons/icons';
 import {
   IonContent,
-  IonHeader,
+  IonIcon,
   IonPage,
-  IonTitle,
-  IonToolbar,
-  IonImg,
   IonItem,
-  IonInput,
-  IonButton,
   IonList,
   IonItemSliding,
   IonItemOptions,
   IonItemOption,
 } from "@ionic/react";
 import { useStorage } from "../components/useStorage";
-import { useCallback, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import GasStationCard from "../components/GasStationCard";
 import React from "react";
 import useStation from "../hooks/useStation";
@@ -79,8 +73,6 @@ const Tab3: React.FC = () => {
     ionList.current.closeSlidingItems();
   };
   /////////////////////////////////////////
-
-  const response = useLocation(location);
 
   if (!Searching) {
     return (
@@ -175,7 +167,7 @@ const Tab3: React.FC = () => {
               alt="logo"
             ></img>
           </header>
-          <body className="App-body">
+          <div>
             <div className="First-Row">
               <p className="Stations-Title">
                 <b>
@@ -193,7 +185,7 @@ const Tab3: React.FC = () => {
             </div>
             {Stations.map((Station, key) => {
               if (
-                Station.Rótulo.search(IDEESS.toUpperCase()) != -1 ||
+                Station.Rótulo.search(IDEESS.toUpperCase()) !== -1 ||
                 IDEESS === "-"
               ) {
                 return (
@@ -212,14 +204,24 @@ const Tab3: React.FC = () => {
                           )
                         }
                       >
-                        <IonItemOption>Favoritos</IonItemOption>
+                        <IonItemOption><IonIcon icon={star} /></IonItemOption>
+                      </IonItemOptions>
+                      <IonItemOptions
+                        side="end"
+                        onClick={() =>
+                          deleteGas(
+                            Station.IDEESS
+                          )
+                        }
+                      >
+                        <IonItemOption><IonIcon icon={trash} /></IonItemOption>
                       </IonItemOptions>
                     </IonItemSliding>
                   </IonList>
                 );
               }
             })}
-          </body>
+          </div>
         </IonContent>
       </IonPage>
     );

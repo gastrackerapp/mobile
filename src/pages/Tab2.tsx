@@ -1,22 +1,17 @@
+import { trash, star } from 'ionicons/icons';
 import {
   IonContent,
-  IonHeader,
+  IonIcon,
   IonPage,
-  IonTitle,
-  IonToolbar,
-  IonImg,
   IonItem,
-  IonInput,
-  IonButton,
   IonList,
   IonItemSliding,
   IonItemOptions,
   IonItemOption,
 } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
 import "./Tab2.css";
 import { useStorage } from "../components/useStorage";
-import { useCallback, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import GasStationCard from "../components/GasStationCard";
 import React from "react";
 import useCCAA from "../hooks/useCCAA";
@@ -130,7 +125,11 @@ const Tab2: React.FC = () => {
                     <i>COMUNIDAD AUTÓNOMA</i>
                   </b>
                 </p>
-                <select value={IDCCAA} className="Form-select" onChange={handleCCAAChange}>
+                <select
+                  value={IDCCAA}
+                  className="Form-select"
+                  onChange={handleCCAAChange}
+                >
                   {CCAAS.map((CCAA) => {
                     return <option value={CCAA.IDCCAA}>{CCAA.CCAA}</option>;
                   })}
@@ -142,7 +141,11 @@ const Tab2: React.FC = () => {
                     <i>PROVINCIA</i>
                   </b>
                 </p>
-                <select value={IDProvincia} className="Form-select" onChange={handleProvinciaChange}>
+                <select
+                  value={IDProvincia}
+                  className="Form-select"
+                  onChange={handleProvinciaChange}
+                >
                   <option value={"-"}>-</option>;
                   {Provincias.map((Provincia) => {
                     return (
@@ -160,7 +163,11 @@ const Tab2: React.FC = () => {
                     <i>MUNICIPIO</i>
                   </b>
                 </p>
-                <select value={IDMunicipio} className="Form-select" onChange={handleMunicipioChange}>
+                <select
+                  value={IDMunicipio}
+                  className="Form-select"
+                  onChange={handleMunicipioChange}
+                >
                   <option value={"-"}>-</option>;
                   {Municipios.map((Municipio) => {
                     return (
@@ -177,7 +184,11 @@ const Tab2: React.FC = () => {
                     <i>COMBUSTIBLE</i>
                   </b>
                 </p>
-                <select value={IDProducto} className="Form-select" onChange={handleProductoChange}>
+                <select
+                  value={IDProducto}
+                  className="Form-select"
+                  onChange={handleProductoChange}
+                >
                   <option value={"-"}>-</option>;
                   {Productos.map((Producto) => {
                     return (
@@ -194,7 +205,11 @@ const Tab2: React.FC = () => {
                     <i>ESTACIÓN DE SERVICIO</i>
                   </b>
                 </p>
-                <select value={IDEESS} className="Form-select" onChange={handleEESSChange}>
+                <select
+                  value={IDEESS}
+                  className="Form-select"
+                  onChange={handleEESSChange}
+                >
                   <option value={"-"}>-</option>;
                   <option value={"BP"}>BP</option>;
                   <option value={"CEPSA"}>Cepsa</option>;
@@ -224,29 +239,32 @@ const Tab2: React.FC = () => {
     return (
       <IonPage>
         <IonContent fullscreen>
-        <header className="App-header">
+          <header className="App-header">
             <img
               className="App-image"
               src="assets/images/logo.png"
               alt="logo"
             ></img>
           </header>
-          <body className="App-body">
-          <div className="First-Row">
-            <p className="Stations-Title">
-              <b>
-                <i>RESULTADOS</i>
-              </b>
-            </p>
-            <button className="New-Search-button" onClick={() => handleSearchingChange()}>
-              <b>
-                <i>NUEVA BÚSQUEDA</i>
-              </b>
-            </button>
-          </div>
+          <div>
+            <div className="First-Row">
+              <p className="Stations-Title">
+                <b>
+                  <i>RESULTADOS</i>
+                </b>
+              </p>
+              <button
+                className="New-Search-button"
+                onClick={() => handleSearchingChange()}
+              >
+                <b>
+                  <i>NUEVA BÚSQUEDA</i>
+                </b>
+              </button>
+            </div>
             {Stations.map((Station, key) => {
               if (
-                Station.Rótulo.search(IDEESS.toUpperCase()) != -1 ||
+                Station.Rótulo.search(IDEESS.toUpperCase()) !== -1 ||
                 IDEESS === "-"
               ) {
                 return (
@@ -265,14 +283,20 @@ const Tab2: React.FC = () => {
                           )
                         }
                       >
-                        <IonItemOption>Favoritos</IonItemOption>
+                        <IonItemOption><IonIcon icon={star} /></IonItemOption>
+                      </IonItemOptions>
+                      <IonItemOptions
+                        side="end"
+                        onClick={() => deleteGas(Station.IDEESS)}
+                      >
+                        <IonItemOption><IonIcon icon={trash} /></IonItemOption>
                       </IonItemOptions>
                     </IonItemSliding>
                   </IonList>
                 );
               }
             })}
-          </body>
+          </div>
         </IonContent>
       </IonPage>
     );
