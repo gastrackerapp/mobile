@@ -40,7 +40,7 @@ const GeolocationButton: React.FC = () => {
                 message={error.message}
                 duration={3000}
             />
-            <IonButton color="primary" onClick={getLocation}>{position ? `${position.coords.latitude} ${position.coords.longitude}` : "Get Location"}</IonButton>
+            <IonButton color="primary" onClick={getLocation}>{position ? `${position.coords.latitude} ${position.coords.longitude}` : "Buscar"}</IonButton>
         </>
     );
 };
