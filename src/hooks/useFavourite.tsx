@@ -94,6 +94,7 @@ export default function useFavourite(favouriteGasStations: GasItem[]) {
       GetFavStations(key, value, favouriteGasStations)
     );
   }, [favouriteGasStations]);
+  console.log("wait", FavouriteStations)
   return FavouriteStations.sort((a, b) => {
     return (
       parseFloat(a.PrecioProducto.split(",").join(".")) -

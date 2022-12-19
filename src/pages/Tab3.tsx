@@ -113,7 +113,7 @@ const Tab3: React.FC = () => {
   ////////////////////////////////////////////////////////////
 
   //////////////////////////DB Hook//////////////////////////
-  const { gass, addGas, removeGas } = useStorage();
+  const { gass, addGas, removeGas } = useStorage(Searching);
 
   const [place, setPlace] = useState("");
 

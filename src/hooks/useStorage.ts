@@ -9,7 +9,7 @@ IDMunicipio: string,
 IDProducto: string | null
 
 }
-export function useStorage(){
+export function useStorage(update:boolean){
 const [store, setStore] = useState<Storage>();
 const [gass,setGas] = useState<GasItem[]>([]);
 
@@ -26,7 +26,7 @@ useEffect(() => {
         
     }
         initStorage(); 
-    }, [])
+    }, [update])
 
     const addGas = async (estacion: string, idmunicipio: string,idproducto : string | null) => {
         const newGas = {
@@ -41,10 +41,10 @@ useEffect(() => {
     }
 
     const removeGas = async(id: string) =>{
-        const toDelete = gass.filter(gas => gas.IDEESS !== id);
-        setGas(toDelete);
-        console.log('Deleted ',toDelete);
-        return store?.set(GAS_KEY,toDelete);
+        const toKeep = gass.filter(gas => gas.IDEESS !== id);
+        setGas(toKeep);
+        console.log('To Keep ',toKeep);
+        return store?.set(GAS_KEY,toKeep);
     }
     return{
     gass,addGas, removeGas
