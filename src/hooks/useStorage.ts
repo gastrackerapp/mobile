@@ -36,13 +36,14 @@ useEffect(() => {
         }
         const updatedGas = [...gass,newGas];
         setGas(updatedGas)
-        console.log(gass);
         store?.set(GAS_KEY,updatedGas);
+        console.log('Stored ',gass);
     }
 
     const removeGas = async(id: string) =>{
         const toDelete = gass.filter(gas => gas.IDEESS !== id);
         setGas(toDelete);
+        console.log('Deleted ',toDelete);
         return store?.set(GAS_KEY,toDelete);
     }
     return{

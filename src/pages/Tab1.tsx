@@ -3,6 +3,11 @@ import {
   IonContent,
   IonIcon,
   IonList,
+  IonRefresher,
+  IonRefresherContent,
+  IonTitle,
+  IonToolbar,
+  RefresherEventDetail,
   IonPage,
   IonItem,
   IonItemSliding,
@@ -28,8 +33,16 @@ const Tab1: React.FC = () => {
   /////////////////////////////////////////////////////////
 
   //////////////////////Stations  Hook//////////////////////
-  const FavouriteStations = useFavourite(gass);
   /////////////////////////////////////////////////////////
+  
+  const FavouriteStations = useFavourite(gass);
+
+  function handleRefresh(event: CustomEvent<RefresherEventDetail>) {
+    setTimeout(() => {
+      console.log("HOLA",FavouriteStations)
+      event.detail.complete();
+    }, 2000);
+  }
 
   return (
     <IonPage>
@@ -42,6 +55,9 @@ const Tab1: React.FC = () => {
           ></img>
         </header>
         <div>
+        <IonRefresher slot="fixed" pullFactor={0.5} pullMin={100} pullMax={200} onIonRefresh={handleRefresh}>
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
           <div className="First-Row">
             <p className="Stations-Title">
               <b>
@@ -49,7 +65,7 @@ const Tab1: React.FC = () => {
               </b>
             </p>
           </div>
-          {FavouriteStations.map((Station, key) => {
+          {FavouriteStations.map((Station: any, key: any) => {
             return (
               <IonList ref={ionList}>
                 <IonItemSliding key={key}>

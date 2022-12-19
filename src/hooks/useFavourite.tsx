@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { GasItem } from "./useStorage";
 
-let FavouriteStations: StationJSON[] = new Array<StationJSON>();
 
 type StationJSON = {
   Dirección: string;
@@ -36,13 +35,14 @@ interface IFavouriteMunicipioStations {
   IDProducto: string;
 }
 
+let FavouriteStations: StationJSON[] = new Array<StationJSON>();
 function GetFavStations(
   IDMunicipio: String,
   value: IFavouriteMunicipioStations,
   favouriteGasStations: GasItem[]
 ) {
-  const StationsJSON: StationJSON[] = new Array<StationJSON>();
   const getStations = async () => {
+    const StationsJSON: StationJSON[] = new Array<StationJSON>();
     try {
       const StationURL =
         "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/FiltroMunicipioProducto/" +
@@ -73,23 +73,16 @@ function GetFavStations(
     } catch (e) {
       console.error(e);
     }
-    console.log("StationsJSON on " + IDMunicipio);
-    console.log(StationsJSON);
-    console.log("resulta on " + IDMunicipio);
-    const resulta = StationsJSON.filter((Station) =>
+    FavouriteStations = StationsJSON.filter((Station) =>
       value.IDEESSS.includes(Station.IDEESS)
     );
-    console.log(resulta);
-    FavouriteStations.concat(resulta);
-    resulta.forEach((reslt) => FavouriteStations.push(reslt));
-    console.log("FavStationsJSON on " + IDMunicipio);
-    console.log(FavouriteStations);
-    return StationsJSON;
+    return FavouriteStations;
   };
   return getStations();
 }
 
 export default function useFavourite(favouriteGasStations: GasItem[]) {
+  console.log("USEFAVOURITE #1",favouriteGasStations)
   useEffect(() => {
     let gasStationDictionary: {
       [IDMunicipio: string]: IFavouriteMunicipioStations;
@@ -97,13 +90,10 @@ export default function useFavourite(favouriteGasStations: GasItem[]) {
 
     favouriteGasStations.map((gas, key) => checkGas(gas, gasStationDictionary));
 
-    console.log("gasStationDictionary");
-    console.log(gasStationDictionary);
-
     Object.entries(gasStationDictionary).forEach(([key, value]) =>
       GetFavStations(key, value, favouriteGasStations)
     );
-  }, [favouriteGasStations, FavouriteStations]);
+  }, [favouriteGasStations]);
   return FavouriteStations.sort((a, b) => {
     return (
       parseFloat(a.PrecioProducto.split(",").join(".")) -
