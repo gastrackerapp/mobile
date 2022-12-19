@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Geoposition } from '@ionic-native/geolocation';
 
 type resultType = {
   region: string;
@@ -8,8 +9,11 @@ type resultType = {
 }
 
 
-const useLocation = (props: {lng: number, lat: number}) => {
-  const { lng, lat } = props;
+const useLocation = (position: Geoposition | undefined) => {
+  const lat = position?.coords.latitude;
+  const lng = position?.coords.longitude;
+  console.log(lat);
+  console.log(lng);
   const options = {
     method: 'GET',
     url: 'https://trueway-geocoding.p.rapidapi.com/ReverseGeocode',
@@ -35,7 +39,8 @@ const useLocation = (props: {lng: number, lat: number}) => {
         }
       }
       fetchData();
-    }, [])
+    }, [position])
+    console.log(response?.locality)
   return response;
 };
 

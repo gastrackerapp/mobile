@@ -10,6 +10,9 @@ import {
   IonItemSliding,
   IonItemOptions,
   IonItemOption,
+  IonButton, 
+  IonLoading, 
+  IonToast
 } from "@ionic/react";
 import { useState, useRef } from "react";
 import useStation from "../hooks/useStation";
@@ -17,21 +20,43 @@ import useLocation from "../hooks/useLocation";
 import useProducto from "../hooks/useProducto";
 import { useStorage } from "../hooks/useStorage";
 import GasStationCard from "../components/GasStationCard";
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import useMunicipioByName from "../hooks/useMunicipioByName";
+
+interface LocationError {
+  showError: boolean;
+  message?: string;
+}
 
 const Tab3: React.FC = () => {
 
   /////////////////////////Location Hook/////////////////////////
-  const location = {
-    //TRAER ESTOS DATOS DE LA LOCALIZACION DEL USUARIO
-    lat: 37.8132667,
-    lng: -5.0137913,
-  };
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<LocationError>({ showError: false });
+  const [position, setPosition] = useState<Geoposition>();
 
-  const response = useLocation(location);
+  const getLocation = async () => {
+    setLoading(true);
+    try {
+        const position = await Geolocation.getCurrentPosition();
+        setPosition(position);
+        setLoading(false);
+        setError({ showError: false });
+    } catch (e) {
+        setError({ showError: true, message: 'No se ha encontrado la ubicación' });
+        setLoading(false);
+    }
+    console.log(position)
+
+}
+  
+
+  const userLoctaion = useLocation(position);
   //////////////////////////////////////////////////////////////
 
   /////////////////////Conditional rendering/////////////////////
   const getSearchingInitialState = () => {
+    getLocation()
     const Searching = false;
     return Searching;
   };
