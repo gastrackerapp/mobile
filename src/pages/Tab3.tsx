@@ -51,12 +51,11 @@ const Tab3: React.FC = () => {
 }
   
 
-  const userLoctaion = useLocation(position);
+  const userLocation = useLocation(position);
   //////////////////////////////////////////////////////////////
 
   /////////////////////Conditional rendering/////////////////////
   const getSearchingInitialState = () => {
-    getLocation()
     const Searching = false;
     return Searching;
   };
@@ -64,8 +63,16 @@ const Tab3: React.FC = () => {
   const [Searching, setSearching] = useState(getSearchingInitialState);
 
   const handleSearchingChange = () => {
+    getLocation()
+    console.log(IDMunicipio)
     setSearching(!Searching);
   };
+  //////////////////////////////////////////////////////////////
+
+  ///////////////////////Municipio  Hook///////////////////////
+
+  const IDMunicipio = useMunicipioByName(userLocation?.locality);
+
   //////////////////////////////////////////////////////////////
 
   ////////////////////////Producto Hook////////////////////////
@@ -97,7 +104,7 @@ const Tab3: React.FC = () => {
   //////////////////////////////////////////////////////////////
 
   ////////////////////////Stations Hook////////////////////////
-  const Stations = useStation("2063", IDProducto);
+  const Stations = useStation(IDMunicipio.at(0)?.IDMunicipio, IDProducto);
   ////////////////////////////////////////////////////////////
 
   //////////////////////////DB Hook//////////////////////////

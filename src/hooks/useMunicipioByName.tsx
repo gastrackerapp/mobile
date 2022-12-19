@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
+import all from './municipios.json'
+import { useState, useEffect } from "react";
 
-export default function useMunicipioByName(Name: string) {
+export default function useMunicipioByName(Name: string | undefined) {
   type MunicipioJSON = {
     IDMunicipio: string;
     Municipio: string;
@@ -11,19 +12,10 @@ export default function useMunicipioByName(Name: string) {
   useEffect(() => {
     const getMunicipios = async () => {
       try {
-        const MunicipioURL =
-          "	https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/Listados/MunicipiosPorProvincia/" +
-          Name;
-        const { data } = await axios.get(`${MunicipioURL}`);
+        const data = all;
+        console.log(data);
         const MunicipiosJSON: MunicipioJSON[] = new Array<MunicipioJSON>();
-        data.map((Municipio: MunicipioJSON) => {
-          const MunicipioJSON: MunicipioJSON = {
-            IDMunicipio: Municipio.IDMunicipio,
-            Municipio: Municipio.Municipio,
-          };
-          MunicipiosJSON.push(MunicipioJSON);
-        });
-        setMunicipios(MunicipiosJSON);
+        setMunicipios(data.filter(Municipio => Municipio.Municipio === Name));
       } catch (e) {
         console.error(e);
       }

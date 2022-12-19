@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 
-export default function useStation(IDMunicipio : string | null, IDProducto : string | null) {
+export default function useStation(IDMunicipio : string | null | undefined, IDProducto : string | null) {
     type StationJSON = {
       Dirección: string
       Latitud: string;
